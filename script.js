@@ -61,12 +61,7 @@ submitBtn.addEventListener("click", () => {
         alertBox.innerText = "Please enter a valid image URL";
         urlgroup.appendChild(alertBox);
     }
-    if (url.length < 3) {
-        let alertBox = document.createElement("div");
-        alertBox.classList.add("alert-box");
-        alertBox.innerText = "URL must be at least 3 characters long";
-        urlgroup.appendChild(alertBox);
-    }
+    
     if (purpose.length < 3) {
         let alertBox = document.createElement("div");
         alertBox.classList.add("alert-box");
