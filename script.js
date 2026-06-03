@@ -14,10 +14,6 @@ const urlgroup = document.querySelector(".url-group");
 const namegroup = document.querySelector(".name-group");
 const purposegroup = document.querySelector(".purpose-group");
 const hometowngroup = document.querySelector(".hometown-group");
-let emr=[];
-let nr=[];
-let imp =[];
-let urg = [];
 const categoryInput = document.querySelector(".categories");
 
 createBtn.addEventListener("click", () => {
@@ -35,6 +31,11 @@ form.addEventListener("submit", (e) => {
 closeBtn.addEventListener("click", () => {
     form.style.display = "none";
     container.style.filter = "blur(0)";
+     nameInput.value = "";
+    hometownInput.value = "";
+    urlInput.value = "";
+    purposeInput.value = "";
+    categoryInput.querySelector('input[name="category"]:checked').checked=false;
 });
 submitBtn.addEventListener("click", () => {
     const name = nameInput.value;
@@ -73,12 +74,14 @@ submitBtn.addEventListener("click", () => {
         alertBox.innerText = "Please select a category";
         categoryInput.appendChild(alertBox);
     }
+    
     nameInput.value = "";
     hometownInput.value = "";
     urlInput.value = "";
     purposeInput.value = "";
-   
+    categoryInput.querySelector('input[name="category"]:checked').checked=false;
+
 
  
 });
-// localStorage.removeItem("contacts");
+// localStorage.removeItem("tasks");
