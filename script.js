@@ -112,6 +112,8 @@ function submission() {
         hometownInput.value = "";
         urlInput.value = "";
         purposeInput.value = "";
+        categoryInput.querySelector('input[name="category"]:checked').checked = false;
+        alert("Profile created successfully!");
     });
 
 }
