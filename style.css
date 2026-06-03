@@ -331,5 +331,6 @@ input::placeholder{
     0 10px 30px rgba(0,0,0,.35);
     color:rgb(238, 17, 17);
     font-size:15px;
-    
+    animation: fadeIn 0.5s;
+    display:none;
 }

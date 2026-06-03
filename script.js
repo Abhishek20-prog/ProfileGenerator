@@ -15,73 +15,114 @@ const namegroup = document.querySelector(".name-group");
 const purposegroup = document.querySelector(".purpose-group");
 const hometowngroup = document.querySelector(".hometown-group");
 const categoryInput = document.querySelector(".categories");
-
+let alertBox = document.createElement("div");
 createBtn.addEventListener("click", () => {
     form.style.display = "block";
     container.style.filter = "blur(5px)";
+    alertBox.style.display = "none";
 
-   
+
 });
 
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    form.style.display = "none";
-    container.style.filter = "blur(0)";
-});
+function submission() {
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = nameInput.value;
+        const hometown = hometownInput.value;
+        const url = urlInput.value;
+        const purpose = purposeInput.value;
+        const category = categoryInput.value;
+        if (name.length === 0 && hometown.length === 0 && url.length === 0 && purpose.length === 0) {
+
+            alertBox.classList.add("alert-box");
+            alertBox.textContent = "Please fill in all the fields.";
+            form.appendChild(alertBox);
+            alertBox.style.display = "block";
+            alertBox.style.position = "fixed";
+            alertBox.style.top = "20px";
+            alertBox.style.right = "20px";
+            setTimeout(() => {
+                alertBox.style.display = "none";
+                form.removeChild(alertBox);
+            }, 3000);
+            return;
+        }
+        const urlRegex = /^(https?:\/\/)([\w-]+\.)+[\w-]{2,}(\/\S*)?$/;
+        if (!urlRegex.test(url)) {
+
+            alertBox.classList.add("alert-box");
+            alertBox.textContent = "Please enter a valid image URL.";
+            urlgroup.appendChild(alertBox);
+            alertBox.style.display = "block";
+
+            setTimeout(() => {
+                alertBox.style.display = "none";
+                urlgroup.removeChild(alertBox);
+            }, 3000);
+            return;
+        }
+        if (name.length === 0) {
+            alertBox.classList.add("alert-box");
+            alertBox.textContent = "Please enter your name.";
+            namegroup.appendChild(alertBox);
+            alertBox.style.display = "block";
+            setTimeout(() => {
+                alertBox.style.display = "none";
+                namegroup.removeChild(alertBox);
+            }, 3000);
+            return;
+        }
+        if (hometown.length === 0) {
+            alertBox.classList.add("alert-box");
+            alertBox.textContent = "Please enter your hometown.";
+            hometowngroup.appendChild(alertBox);
+            alertBox.style.display = "block";
+            setTimeout(() => {
+                alertBox.style.display = "none";
+                hometowngroup.removeChild(alertBox);
+            }, 3000);
+            return;
+        }
+        if (purpose.length === 0) {
+            alertBox.classList.add("alert-box");
+            alertBox.textContent = "Please enter your purpose.";
+            purposegroup.appendChild(alertBox);
+            alertBox.style.display = "block";
+            setTimeout(() => {
+                alertBox.style.display = "none";
+                purposegroup.removeChild(alertBox);
+            }, 3000);
+            return;
+        }
+
+        if (categoryInput.querySelector('input[name="category"]:checked') == null) {
+            alertBox.classList.add("alert-box");
+            alertBox.textContent = "Please select a category.";
+            categoryInput.parentElement.appendChild(alertBox);
+            alertBox.style.display = "block";
+            setTimeout(() => {
+                alertBox.style.display = "none";
+                categoryInput.parentElement.removeChild(alertBox);
+            }, 3000);
+            return;
+        }
+        form.style.display = "none";
+        container.style.filter = "blur(0)";
+        nameInput.value = "";
+        hometownInput.value = "";
+        urlInput.value = "";
+        purposeInput.value = "";
+    });
+
+}
 closeBtn.addEventListener("click", () => {
     form.style.display = "none";
     container.style.filter = "blur(0)";
-     nameInput.value = "";
-    hometownInput.value = "";
-    urlInput.value = "";
-    purposeInput.value = "";
-    categoryInput.querySelector('input[name="category"]:checked').checked=false;
-});
-submitBtn.addEventListener("click", () => {
-    const name = nameInput.value;
-    const hometown = hometownInput.value;
-    const url = urlInput.value;
-    const purpose = purposeInput.value;
-    if (name.length == 0) {
-        let alertBox = document.createElement("div");
-        alertBox.classList.add("alert-box");
-        alertBox.innerText = "Name is required";
-        namegroup.appendChild(alertBox);
-    }
-     if (hometown.length == 0) {
-        let alertBox = document.createElement("div");
-        alertBox.classList.add("alert-box");
-        alertBox.innerText = "Home town is required";
-        hometowngroup.appendChild(alertBox);
-    }
-    let regexurl = /^(ftp|http|https):\/\/[^ "]+$/;
-    if (!regexurl.test(url)) {
-        let alertBox = document.createElement("div");
-        alertBox.classList.add("alert-box");
-        alertBox.innerText = "Please enter a valid image URL";
-        urlgroup.appendChild(alertBox);
-    }
-    
-    if (purpose.length == 0) {
-        let alertBox = document.createElement("div");
-        alertBox.classList.add("alert-box");
-        alertBox.innerText = "Purpose is required";
-        purposegroup.appendChild(alertBox);
-    }
-    if(categoryInput.querySelector('input[name="category"]:checked')==null){
-        let alertBox = document.createElement("div");
-        alertBox.classList.add("alert-box");
-        alertBox.innerText = "Please select a category";
-        categoryInput.appendChild(alertBox);
-    }
-    
     nameInput.value = "";
     hometownInput.value = "";
     urlInput.value = "";
     purposeInput.value = "";
-    categoryInput.querySelector('input[name="category"]:checked').checked=false;
 
-
- 
 });
-// localStorage.removeItem("tasks");
+submission();
+// localStorage.removeItem("important");
