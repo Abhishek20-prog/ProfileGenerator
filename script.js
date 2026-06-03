@@ -36,22 +36,16 @@ submitBtn.addEventListener("click", () => {
     const hometown = hometownInput.value;
     const url = urlInput.value;
     const purpose = purposeInput.value;
-    // if (name.length === 0 || hometown.length === 0 || url.length === 0 || purpose.length === 0) {
-    //     let alertBox = document.createElement("div");
-    //     alertBox.classList.add("alert-box");
-    //     alertBox.innerText = "Please fill all the fields";
-    //     form.appendChild(alertBox);
-    // }
-    if (name.length < 3) {
+    if (name.length == 0) {
         let alertBox = document.createElement("div");
         alertBox.classList.add("alert-box");
-        alertBox.innerText = "Name must be at least 3 characters long";
+        alertBox.innerText = "Name is required";
         namegroup.appendChild(alertBox);
     }
-     if (hometown.length < 3) {
+     if (hometown.length == 0) {
         let alertBox = document.createElement("div");
         alertBox.classList.add("alert-box");
-        alertBox.innerText = "Home town must be at least 3 characters long";
+        alertBox.innerText = "Home town is required";
         hometowngroup.appendChild(alertBox);
     }
     let regexurl = /^(ftp|http|https):\/\/[^ "]+$/;
@@ -62,10 +56,10 @@ submitBtn.addEventListener("click", () => {
         urlgroup.appendChild(alertBox);
     }
     
-    if (purpose.length < 3) {
+    if (purpose.length == 0) {
         let alertBox = document.createElement("div");
         alertBox.classList.add("alert-box");
-        alertBox.innerText = "Purpose must be at least 3 characters long";
+        alertBox.innerText = "Purpose is required";
         purposegroup.appendChild(alertBox);
     }
    
