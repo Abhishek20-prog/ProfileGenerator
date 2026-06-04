@@ -17,6 +17,65 @@ const hometowngroup = document.querySelector(".hometown-group");
 const profileform = document.querySelector("#profile-form")
 let alertBox = document.createElement("div");
 const categoryRad = form.querySelectorAll("input[name='category']");
+// Main card container
+const card = document.createElement("div");
+// Profile section wrapper
+const profile = document.createElement("div");
+// Profile image
+const img = document.createElement("img");
+// Information section
+const info = document.createElement("div");
+// User name heading
+const h2 = document.createElement("h2");
+// Details container
+const details = document.createElement("div");
+// First detail block (Home Town)
+const detail1 = document.createElement("div");
+// Home Town label
+const p1 = document.createElement("p");
+// Home Town value
+const span1 = document.createElement("span");
+// Second detail block (Bookings)
+const detail2 = document.createElement("div");
+// Bookings label
+const p2 = document.createElement("p");
+// Bookings value
+const span2 = document.createElement("span");
+// Buttons container
+const buttons = document.createElement("div");
+// Call button
+const callBtn = document.createElement("button");
+// Message button
+const msgBtn = document.createElement("button");
+
+card.appendChild(profile);
+
+profile.appendChild(img);
+profile.appendChild(info);
+
+info.appendChild(h2);
+info.appendChild(details);
+info.appendChild(buttons);
+
+details.appendChild(detail1);
+details.appendChild(detail2);
+
+detail1.appendChild(p1);
+detail1.appendChild(span1);
+
+detail2.appendChild(p2);
+detail2.appendChild(span2);
+
+buttons.appendChild(callBtn);
+buttons.appendChild(msgBtn);
+card.classList.add("card");
+profile.classList.add("profile");
+info.classList.add("info");
+details.classList.add("details");
+buttons.classList.add("buttons");
+
+callBtn.classList.add("call");
+msgBtn.classList.add("msg");
 function savetoLocal(obj) {
     if (localStorage.getItem("tasks") == null) {
         let oldtasks = [];
