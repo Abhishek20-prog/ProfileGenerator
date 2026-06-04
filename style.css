@@ -349,3 +349,36 @@ input::placeholder {
     animation: fadeInOut 3s ease forwards;
     display: none;
 }
+.stack{
+    position: relative;
+    width: 380px;
+    height: 230px;
+    flex-shrink: 0;
+}
+
+.stack .card{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+}
+
+.stack .card:nth-child(1){
+    z-index:3;
+}
+
+.stack .card:nth-child(2){
+    z-index:2;
+    top:8px;
+}
+
+.stack .card:nth-child(3){
+    z-index:1;
+    top:16px;
+}
+.container{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:30px;
+}
