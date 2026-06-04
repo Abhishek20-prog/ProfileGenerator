@@ -14,27 +14,23 @@ const urlgroup = document.querySelector(".url-group");
 const namegroup = document.querySelector(".name-group");
 const purposegroup = document.querySelector(".purpose-group");
 const hometowngroup = document.querySelector(".hometown-group");
-
+const profileform = document.querySelector("#profile-form")
 let alertBox = document.createElement("div");
 const categoryRad = form.querySelectorAll("input[name='category']");
-function savetoLocal(obj){
-    if(localStorage.getItem("tasks")== null){
-        let oldtasks=[];
+function savetoLocal(obj) {
+    if (localStorage.getItem("tasks") == null) {
+        let oldtasks = [];
         oldtasks.push(obj);
         localStorage.setItem("tasks", JSON.stringify(oldtasks));
 
     }
     else {
-        let oldtasks=localStorage.getItem("tasks");
-        oldtasks= JSON.parse(oldtasks);
+        let oldtasks = localStorage.getItem("tasks");
+        oldtasks = JSON.parse(oldtasks);
         oldtasks.push(obj);
         localStorage.setItem("tasks", JSON.stringify(oldtasks));
     }
 }
-
-
-
-
 createBtn.addEventListener("click", () => {
     form.style.display = "block";
     container.style.filter = "blur(5px)";
@@ -42,7 +38,6 @@ createBtn.addEventListener("click", () => {
 
 
 });
-
 function submission() {
     form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -50,7 +45,7 @@ function submission() {
         const hometown = hometownInput.value;
         const url = urlInput.value;
         const purpose = purposeInput.value;
-       
+
         if (name.length === 0 && hometown.length === 0 && url.length === 0 && purpose.length === 0) {
 
             alertBox.classList.add("alert-box");
@@ -114,16 +109,16 @@ function submission() {
             return;
         }
         let selected = false;
-        categoryRad.forEach(function(cat){
-            if(cat.checked==true){
-                selected=cat.value;
+        categoryRad.forEach(function (cat) {
+            if (cat.checked == true) {
+                selected = cat.value;
 
             }
 
 
         });
-        if(!selected){
-             alertBox.classList.add("alert-box");
+        if (!selected) {
+            alertBox.classList.add("alert-box");
             alertBox.textContent = "Please enter your purpose.";
             purposegroup.appendChild(alertBox);
             alertBox.style.display = "block";
@@ -136,17 +131,6 @@ function submission() {
         }
 
 
-       
-            
-
-        
-       
-       
-        nameInput.value = "";
-        hometownInput.value = "";
-        urlInput.value = "";
-        purposeInput.value = "";
-        
         savetoLocal(
             {
                 url,
@@ -157,7 +141,8 @@ function submission() {
 
             }
         )
-        
+        profileform.reset();
+
     });
 
 }
@@ -169,6 +154,6 @@ closeBtn.addEventListener("click", () => {
     urlInput.value = "";
     purposeInput.value = "";
 
+
 });
 submission();
-// localStorage.removeItem("profile");
