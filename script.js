@@ -14,8 +14,27 @@ const urlgroup = document.querySelector(".url-group");
 const namegroup = document.querySelector(".name-group");
 const purposegroup = document.querySelector(".purpose-group");
 const hometowngroup = document.querySelector(".hometown-group");
-const categoryInput = document.querySelector(".categories");
+
 let alertBox = document.createElement("div");
+const categoryRad = form.querySelectorAll("input[name='category']");
+function savetoLocal(obj){
+    if(localStorage.getItem("tasks")== null){
+        let oldtasks=[];
+        oldtasks.push(obj);
+        localStorage.setItem("tasks", JSON.stringify(oldtasks));
+
+    }
+    else {
+        let oldtasks=localStorage.getItem("tasks");
+        oldtasks= JSON.parse(oldtasks);
+        oldtasks.push(obj);
+        localStorage.setItem("tasks", JSON.stringify(oldtasks));
+    }
+}
+
+
+
+
 createBtn.addEventListener("click", () => {
     form.style.display = "block";
     container.style.filter = "blur(5px)";
@@ -31,7 +50,7 @@ function submission() {
         const hometown = hometownInput.value;
         const url = urlInput.value;
         const purpose = purposeInput.value;
-        const category = categoryInput.value;
+       
         if (name.length === 0 && hometown.length === 0 && url.length === 0 && purpose.length === 0) {
 
             alertBox.classList.add("alert-box");
@@ -94,26 +113,51 @@ function submission() {
             }, 3000);
             return;
         }
+        let selected = false;
+        categoryRad.forEach(function(cat){
+            if(cat.checked==true){
+                selected=cat.value;
 
-        if (categoryInput.querySelector('input[name="category"]:checked') == null) {
-            alertBox.classList.add("alert-box");
-            alertBox.textContent = "Please select a category.";
-            categoryInput.parentElement.appendChild(alertBox);
+            }
+
+
+        });
+        if(!selected){
+             alertBox.classList.add("alert-box");
+            alertBox.textContent = "Please enter your purpose.";
+            purposegroup.appendChild(alertBox);
             alertBox.style.display = "block";
             setTimeout(() => {
                 alertBox.style.display = "none";
-                categoryInput.parentElement.removeChild(alertBox);
+                purposegroup.removeChild(alertBox);
             }, 3000);
             return;
+
         }
-        form.style.display = "none";
-        container.style.filter = "blur(0)";
+
+
+       
+            
+
+        
+       
+       
         nameInput.value = "";
         hometownInput.value = "";
         urlInput.value = "";
         purposeInput.value = "";
-        categoryInput.querySelector('input[name="category"]:checked').checked = false;
-        alert("Profile created successfully!");
+        
+        savetoLocal(
+            {
+                url,
+                name,
+                hometown,
+                purpose,
+                selected,
+
+            }
+        )
+        
     });
 
 }
@@ -127,4 +171,4 @@ closeBtn.addEventListener("click", () => {
 
 });
 submission();
-// localStorage.removeItem("important");
+// localStorage.removeItem("profile");
