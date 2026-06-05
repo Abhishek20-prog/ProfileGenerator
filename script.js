@@ -14,10 +14,14 @@ const urlgroup = document.querySelector(".url-group");
 const namegroup = document.querySelector(".name-group");
 const purposegroup = document.querySelector(".purpose-group");
 const hometowngroup = document.querySelector(".hometown-group");
+const categorygroup = document.querySelector(".category-group");
 const profileform = document.querySelector("#profile-form")
 let alertBox = document.createElement("div");
 const categoryRad = form.querySelectorAll("input[name='category']");
-// Main card container
+const stack = document.querySelector(".stack")
+function cardmaker(){
+    
+    // Main card container
 const card = document.createElement("div");
 // Profile section wrapper
 const profile = document.createElement("div");
@@ -47,6 +51,15 @@ const buttons = document.createElement("div");
 const callBtn = document.createElement("button");
 // Message button
 const msgBtn = document.createElement("button");
+img.src=urlInput.value;
+h2.textContent= nameInput.value;
+span1.textContent= hometownInput.value;
+p1.textContent="Home Town";
+p2.textContent="Bookings";
+callBtn.textContent="📞 Call";
+msgBtn.textContent="Message";
+
+
 
 card.appendChild(profile);
 
@@ -68,19 +81,28 @@ detail2.appendChild(span2);
 
 buttons.appendChild(callBtn);
 buttons.appendChild(msgBtn);
+stack.appendChild(card);
+
+
 card.classList.add("card");
 profile.classList.add("profile");
 info.classList.add("info");
 details.classList.add("details");
 buttons.classList.add("buttons");
+stack.classList.add("stack");
 
 callBtn.classList.add("call");
 msgBtn.classList.add("msg");
+}
+
 function savetoLocal(obj) {
     if (localStorage.getItem("tasks") == null) {
         let oldtasks = [];
         oldtasks.push(obj);
         localStorage.setItem("tasks", JSON.stringify(oldtasks));
+       
+       
+    
 
     }
     else {
@@ -88,7 +110,12 @@ function savetoLocal(obj) {
         oldtasks = JSON.parse(oldtasks);
         oldtasks.push(obj);
         localStorage.setItem("tasks", JSON.stringify(oldtasks));
+        
+       
+        
+    
     }
+    
 }
 createBtn.addEventListener("click", () => {
     form.style.display = "block";
@@ -104,6 +131,15 @@ function submission() {
         const hometown = hometownInput.value;
         const url = urlInput.value;
         const purpose = purposeInput.value;
+          let selected = false;
+        categoryRad.forEach(function (cat) {
+            if (cat.checked == true) {
+                selected = cat.value;
+
+            }
+
+
+        });
 
         if (name.length === 0 && hometown.length === 0 && url.length === 0 && purpose.length === 0) {
 
@@ -167,23 +203,15 @@ function submission() {
             }, 3000);
             return;
         }
-        let selected = false;
-        categoryRad.forEach(function (cat) {
-            if (cat.checked == true) {
-                selected = cat.value;
-
-            }
-
-
-        });
+      
         if (!selected) {
             alertBox.classList.add("alert-box");
-            alertBox.textContent = "Please enter your purpose.";
-            purposegroup.appendChild(alertBox);
+            alertBox.textContent = "Please choose your category.";
+            categorygroup.appendChild(alertBox);
             alertBox.style.display = "block";
             setTimeout(() => {
                 alertBox.style.display = "none";
-                purposegroup.removeChild(alertBox);
+                categorygroup.removeChild(alertBox);
             }, 3000);
             return;
 
@@ -200,6 +228,7 @@ function submission() {
 
             }
         )
+        // cardmaker()
         profileform.reset();
 
     });
@@ -208,10 +237,7 @@ function submission() {
 closeBtn.addEventListener("click", () => {
     form.style.display = "none";
     container.style.filter = "blur(0)";
-    nameInput.value = "";
-    hometownInput.value = "";
-    urlInput.value = "";
-    purposeInput.value = "";
+    profileform.reset();
 
 
 });

@@ -15,11 +15,7 @@ body {
     color: white;
 }
 
-.container {
-    display: flex;
-    align-items: center;
-    gap: 35px;
-}
+
 
 .card {
     width: 380px;
@@ -335,9 +331,8 @@ input::placeholder {
 }
 
 .alert-box {
-    /* position:fixed;
-    top:20px;
-    right:20px; */
+    
+    
     background: rgba(255, 255, 255, 0.1);
     padding: 18px 28px;
     border-radius: 14px;
