@@ -21,6 +21,7 @@ function savetoLocal(obj) {
     }
     
 }
+
 const container = document.querySelector(".container");
 const actions = document.querySelector(".actions");
 const createBtn = document.querySelector("#create-btn");
@@ -42,7 +43,46 @@ const profileform = document.querySelector("#profile-form")
 let alertBox = document.createElement("div");
 const categoryRad = form.querySelectorAll("input[name='category']");
 const stack = document.querySelector(".stack")
+let themeBtn = document.querySelector("#theme-toggle")
+const savedTheme = localStorage.getItem("theme");
 
+if (savedTheme) {
+
+    document.body.classList.toggle(
+        "light-theme",
+        savedTheme === "light"
+    );
+
+} else {
+
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+    if (!prefersDark.matches) {
+        document.body.classList.add("light-theme");
+    }
+
+}
+
+themeBtn.textContent =
+    document.body.classList.contains("light-theme")
+        ? "☀️"
+        : "🌙";
+
+themeBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("light-theme");
+
+    const theme = document.body.classList.contains("light-theme")
+        ? "light"
+        : "dark";
+
+    localStorage.setItem("theme", theme);
+
+    themeBtn.textContent =
+        theme === "light"
+            ? "☀️"
+            : "🌙";
+});
 
 
 
@@ -173,10 +213,13 @@ closeBtn.addEventListener("click", () => {
 
 
 });
+
 function cardmaker(){
     stack.innerHTML = "";
     let alltasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    alltasks.forEach(function(tasks){
+    // currentIndex = Math.max(0, alltasks.length - 3);
+  
+     alltasks.forEach((tasks) => {
           // Main card container
 const card = document.createElement("div");
 // Profile section wrapper
@@ -241,7 +284,7 @@ detail2.appendChild(span2);
 
 buttons.appendChild(callBtn);
 buttons.appendChild(msgBtn);
-stack.appendChild(card);
+
 
 
 card.classList.add("card");
@@ -249,16 +292,46 @@ profile.classList.add("profile");
 info.classList.add("info");
 details.classList.add("details");
 buttons.classList.add("buttons");
-stack.classList.add("stack");
+// stack.classList.add("stack");
 
 callBtn.classList.add("call");
 msgBtn.classList.add("msg");
+    
 
-    });
+
+    stack.appendChild(card);
+
+     });
+
+    };
     
   
-}
+
 submission();
+function updatestack(){
+    const cards = document.querySelectorAll(".stack .card");
+   for (let i=0 ;i<3;i++ ) {
+        cards.style.zIndex=100-i;
+        cards.style.transform=`translate(${10*index}px) scale(${1 - i*0.02})`;
+        cards.style.opacity=`${1- i*0.02}`;
+
+    };
+}
+downBtn.addEventListener("click", () => {
+    let lc = stack.lastElementChild;
+
+    if (lc) {
+       stack.insertBefore(lc , stack.firstElementChild);
+        updatestack();
+    }
+});
+upBtn.addEventListener("click", () => {
+    let fc = stack.firstElementChild;
+     if (fc) {
+       stack.append(fc);
+        updatestack();
+    }
+});
 window.addEventListener("DOMContentLoaded", () => {
     cardmaker();
 });

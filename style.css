@@ -22,9 +22,9 @@ body {
     padding: 25px;
     border-radius: 28px;
 
-    background: rgba(255, 255, 255, 0.04);
+     background: rgba(45,45,45,0.95);
 
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(50px);
 
     border: 1px solid rgba(255, 255, 255, 0.08);
 
@@ -32,7 +32,7 @@ body {
         0 20px 40px rgba(0, 0, 0, .35),
         inset 0 1px 0 rgba(255, 255, 255, .08);
 
-    position: relative;
+    
 }
 
 #create-btn,
@@ -347,33 +347,109 @@ input::placeholder {
 .stack{
     position: relative;
     width: 380px;
-    height: 230px;
-    flex-shrink: 0;
+    min-height: 280px;
+    display: flex;
+    top:20px;
+    align-items: center;
+    overflow: visible;
 }
 
 .stack .card{
     position:absolute;
-    top:0;
+    top:20px;
     left:0;
-    width:100%;
 }
 
-.stack .card:nth-child(1){
-    z-index:3;
-}
-
-.stack .card:nth-child(2){
-    z-index:2;
-    top:8px;
-}
-
-.stack .card:nth-child(3){
-    z-index:1;
-    top:16px;
-}
 .container{
     display:flex;
     align-items:center;
     justify-content:center;
     gap:30px;
+}
+.stack .card:nth-child(1) {
+    z-index: 3;
+    transform: translateY(0px) scale(1);
+}
+
+.stack .card:nth-child(2) {
+    z-index: 2;
+    transform: translateY(15px) scale(0.97);
+}
+
+.stack .card:nth-child(3) {
+    z-index: 1;
+    transform: translateY(30px) scale(0.94);
+}
+
+
+.stack .card::before,
+.stack .card::after{
+    display:none;
+}
+#theme-toggle{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    width: 50px;
+    height: 50px;
+
+    border: none;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+    background: rgba(255,255,255,0.1);
+    color: white;
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.25);
+
+    transition: all .3s ease;
+}
+
+#theme-toggle:hover{
+    transform: scale(1.08);
+}
+body.light-theme{
+    background: radial-gradient(circle at top left, #ffffff, #d9d9d9);
+    color: #111;
+}
+
+body.light-theme .card,
+body.light-theme .form-card{
+    background: rgba(255,255,255,0.7);
+    color: #111;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+body.light-theme input[type="text"]{
+    background: rgba(0,0,0,0.05);
+    color: #111;
+}
+
+body.light-theme .msg{
+    color: #111;
+    border-color: rgba(0,0,0,0.2) !important;
+}
+
+body.light-theme #theme-toggle{
+    background: rgba(0,0,0,0.08);
+    color: #111;
+}
+.actions button{
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.03);
+    color: white;
+}
+
+body.light-theme .actions button{
+    background: black;
+    color: white;
+    border: 1px solid black;
 }
